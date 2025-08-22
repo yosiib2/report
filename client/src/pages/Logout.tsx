@@ -5,10 +5,10 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Remove user token/session from localStorage (or cookies)
-    localStorage.removeItem("authToken");
+    // ✅ Remove the correct token from localStorage
+    localStorage.removeItem("token");
 
-    // Redirect to login page
+    // ✅ Redirect to login page
     navigate("/login");
   }, [navigate]);
 

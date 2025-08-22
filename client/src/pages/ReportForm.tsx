@@ -20,6 +20,9 @@ const ReportForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
+  // Use environment variable for backend API
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
@@ -27,7 +30,6 @@ const ReportForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate all fields
     if (!formData.name || !formData.email || !formData.phone || !formData.abuseType || !formData.description) {
       toast({
         title: "Missing Information",
@@ -40,7 +42,7 @@ const ReportForm = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/reports', {
+      const response = await fetch(`${API_URL}/api/reports`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -18,6 +18,9 @@ interface Report {
   createdAt: string;
 }
 
+// ✅ Use environment variable for backend URL
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Dashboard = () => {
   const [reports, setReports] = useState<Report[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,18 +29,16 @@ const Dashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // --- Login/Logout state ---
   const [isDirectorLoggedIn, setIsDirectorLoggedIn] = useState(!!localStorage.getItem('token'));
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // --- Change Password state ---
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [changeLoading, setChangeLoading] = useState(false);
 
-  // --- Fetch reports ---
+  // --- Fetch reports on mount ---
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) fetchReports(token);
@@ -49,8 +50,8 @@ const Dashboard = () => {
       setIsLoading(true);
       setError(null);
 
-      const response = await fetch('http://localhost:5000/api/reports', {
-        headers: { 'Authorization': `Bearer ${token}` }
+      const response = await fetch(`${apiUrl}/api/reports`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       const result = await response.json();
@@ -77,60 +78,74 @@ const Dashboard = () => {
       const errorMessage = error instanceof Error ? error.message : 'Failed to load reports';
       setError(errorMessage);
       toast({
-        title: "Error Loading Reports",
+        title: 'Error Loading Reports',
         description: errorMessage,
-        variant: "destructive"
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
     }
   };
 
-  // --- Delete report ---
   const deleteReport = async (id: string) => {
-    const confirmed = window.confirm("Are you sure you want to delete this report?");
+    const confirmed = window.confirm('Are you sure you want to delete this report?');
     if (!confirmed) return;
 
     const token = localStorage.getItem('token');
     if (!token) {
-      toast({ title: 'Authentication Required', description: 'Please log in again', variant: 'destructive' });
+      toast({
+        title: 'Authentication Required',
+        description: 'Please log in again',
+        variant: 'destructive',
+      });
       setIsDirectorLoggedIn(false);
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/reports/${id}`, {
+      const response = await fetch(`${apiUrl}/api/reports/${id}`, {
         method: 'DELETE',
-        headers: { 
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        setReports(prev => prev.filter(report => report._id !== id));
-        toast({ title: 'Report Deleted', description: result.message || 'The report has been deleted.', variant: 'default' });
+        setReports((prev) => prev.filter((report) => report._id !== id));
+        toast({
+          title: 'Report Deleted',
+          description: result.message || 'The report has been deleted.',
+          variant: 'default',
+        });
       } else {
         throw new Error(result.message || 'Failed to delete report');
       }
     } catch (error) {
-      toast({ title: 'Delete Failed', description: error instanceof Error ? error.message : 'Something went wrong', variant: 'destructive' });
+      toast({
+        title: 'Delete Failed',
+        description: error instanceof Error ? error.message : 'Something went wrong',
+        variant: 'destructive',
+      });
     }
   };
 
-  // --- Inline login ---
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
-      toast({ title: 'Missing Fields', description: 'Please enter both username and password', variant: 'destructive' });
+      toast({
+        title: 'Missing Fields',
+        description: 'Please enter both username and password',
+        variant: 'destructive',
+      });
       return;
     }
 
     setLoginLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -152,11 +167,14 @@ const Dashboard = () => {
     }
   };
 
-  // --- Change Password ---
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!oldPassword || !newPassword) {
-      toast({ title: 'Missing Fields', description: 'Please enter both old and new password', variant: 'destructive' });
+      toast({
+        title: 'Missing Fields',
+        description: 'Please enter both old and new password',
+        variant: 'destructive',
+      });
       return;
     }
 
@@ -169,13 +187,13 @@ const Dashboard = () => {
 
     setChangeLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/change-password', {
-        method: 'PUT', // PUT method is standard for updating password
-        headers: { 
+      const response = await fetch(`${apiUrl}/api/auth/change-password`, {
+        method: 'PUT',
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ oldPassword, newPassword })
+        body: JSON.stringify({ oldPassword, newPassword }),
       });
 
       const data = await response.json();
@@ -200,7 +218,6 @@ const Dashboard = () => {
     toast({ title: 'Logged Out', description: 'You have been signed out', variant: 'default' });
   };
 
-  // --- Helper functions ---
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -212,22 +229,24 @@ const Dashboard = () => {
       Emotional: 'bg-accent text-accent-foreground',
       Sexual: 'bg-destructive text-destructive-foreground',
       Financial: 'bg-primary text-primary-foreground',
-      Other: 'bg-secondary text-secondary-foreground'
+      Other: 'bg-secondary text-secondary-foreground',
     };
     return colors[type] || 'bg-secondary text-secondary-foreground';
   };
 
-  // --- Stats ---
   const stats = {
     total: reports.length,
-    thisMonth: reports.filter(r => {
-      const d = new Date(r.createdAt); const now = new Date();
+    thisMonth: reports.filter((r) => {
+      const d = new Date(r.createdAt);
+      const now = new Date();
       return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
     }).length,
-    byType: reports.reduce((acc, r) => { acc[r.abuseType || 'Other'] = (acc[r.abuseType || 'Other'] || 0) + 1; return acc; }, {} as { [key: string]: number })
+    byType: reports.reduce((acc, r) => {
+      acc[r.abuseType || 'Other'] = (acc[r.abuseType || 'Other'] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number }),
   };
 
-  // --- Loading/Error ---
   if (isLoading) return <div className="min-h-screen flex justify-center items-center"><Loader2 className="h-8 w-8 animate-spin" /><p>Loading Dashboard...</p></div>;
   if (error) return (
     <div className="min-h-screen p-4">
@@ -253,7 +272,6 @@ const Dashboard = () => {
           <p className="text-muted-foreground">Monitor and manage abuse reports</p>
         </div>
 
-        {/* --- Inline Login / Logout Section --- */}
         {!isDirectorLoggedIn ? (
           <Card className="max-w-md mx-auto mb-6 p-4 shadow-card">
             <CardHeader className="flex items-center space-x-2 mb-4">
@@ -277,7 +295,6 @@ const Dashboard = () => {
               </Button>
             </div>
 
-            {/* --- Change Password Form --- */}
             <Card className="max-w-md mx-auto mb-6 p-4 shadow-card">
               <CardHeader className="flex items-center space-x-2 mb-4">
                 <Lock className="h-6 w-6" /> 
@@ -296,7 +313,6 @@ const Dashboard = () => {
           </>
         )}
 
-        {/* --- Statistics Cards --- */}
         {isDirectorLoggedIn && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -334,7 +350,6 @@ const Dashboard = () => {
               </Card>
             </div>
 
-            {/* --- Reports List --- */}
             <div className="grid grid-cols-1 gap-4">
               {reports.map(report => (
                 <Card key={report._id} className="shadow-card">
