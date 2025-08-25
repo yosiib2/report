@@ -1,72 +1,65 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { Shield, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+// ReportForm.tsx (unchanged logic, tightened classes; relies on the new CSS utilities)
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { Shield, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 
 const ReportForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    abuseType: '',
-    description: ''
+    name: "",
+    email: "",
+    phone: "",
+    abuseType: "",
+    description: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
-  // Use environment variable for backend API
   const API_URL = import.meta.env.VITE_API_URL;
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.name || !formData.email || !formData.phone || !formData.abuseType || !formData.description) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
-
     setIsLoading(true);
-
     try {
       const response = await fetch(`${API_URL}/api/reports`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-
       const result = await response.json();
-
       if (result.success) {
         setIsSubmitted(true);
         toast({
           title: "Report Submitted Successfully",
           description: "Your report has been received. Someone will contact you soon.",
-          variant: "default"
+          variant: "default",
         });
       } else {
-        throw new Error(result.message || 'Failed to submit report');
+        throw new Error(result.message || "Failed to submit report");
       }
     } catch (error) {
       toast({
         title: "Submission Failed",
         description: error instanceof Error ? error.message : "Failed to submit report. Please try again.",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -97,17 +90,11 @@ const ReportForm = () => {
                   <li>• Appropriate resources and support will be provided</li>
                 </ul>
               </div>
-              <Button 
-                variant="hero" 
+              <Button
+                variant="hero"
                 onClick={() => {
                   setIsSubmitted(false);
-                  setFormData({
-                    name: '',
-                    email: '',
-                    phone: '',
-                    abuseType: '',
-                    description: ''
-                  });
+                  setFormData({ name: "", email: "", phone: "", abuseType: "", description: "" });
                 }}
               >
                 Submit Another Report
@@ -124,15 +111,11 @@ const ReportForm = () => {
       <div className="max-w-2xl mx-auto pt-8">
         <div className="text-center mb-8">
           <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            Confidential Report Form
-          </h1>
-          <p className="text-muted-foreground">
-            Your information is completely secure and confidential
-          </p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Confidential Report Form</h1>
+          <p className="text-muted-foreground">Your information is completely secure and confidential</p>
         </div>
 
-        <Card className="shadow-card border-0 bg-gradient-card">
+        <Card className="shadow-card border border-border bg-gradient-card">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <AlertCircle className="h-5 w-5 text-primary" />
@@ -151,7 +134,7 @@ const ReportForm = () => {
                     id="name"
                     type="text"
                     value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                     placeholder="Enter your full name"
                     className="bg-background"
                     required
@@ -163,7 +146,7 @@ const ReportForm = () => {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder="Enter your email"
                     className="bg-background"
                     required
@@ -178,7 +161,7 @@ const ReportForm = () => {
                     id="phone"
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
                     placeholder="Enter your phone number"
                     className="bg-background"
                     required
@@ -186,9 +169,9 @@ const ReportForm = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="abuseType">Type of Abuse *</Label>
-                  <Select 
-                    value={formData.abuseType} 
-                    onValueChange={(value) => handleInputChange('abuseType', value)}
+                  <Select
+                    value={formData.abuseType}
+                    onValueChange={(value) => handleInputChange("abuseType", value)}
                     required
                   >
                     <SelectTrigger className="bg-background">
@@ -210,34 +193,28 @@ const ReportForm = () => {
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  onChange={(e) => handleInputChange("description", e.target.value)}
                   placeholder="Please describe what happened. Include as much detail as you feel comfortable sharing..."
                   className="bg-background min-h-32"
                   required
                 />
               </div>
 
-              <div className="bg-muted p-4 rounded-lg">
+              <div className="bg-muted p-4 rounded-lg gradient-border">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Privacy Notice:</strong> Your information is encrypted and stored securely. 
+                  <strong>Privacy Notice:</strong> Your information is encrypted and stored securely.
                   Only authorized personnel will have access to your report.
                 </p>
               </div>
 
-              <Button 
-                type="submit" 
-                variant="hero" 
-                size="lg" 
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin mr-2" />
                     Submitting Report...
                   </>
                 ) : (
-                  'Submit Confidential Report'
+                  "Submit Confidential Report"
                 )}
               </Button>
             </form>
