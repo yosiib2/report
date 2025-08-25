@@ -1,14 +1,14 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Lock, Heart, Phone } from 'lucide-react';
+import { Lock, Heart, Phone } from 'lucide-react';  // ❌ Removed Shield
 
 // ✅ Backend URL from env
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Home = () => {
-
   // Example: If you want to fetch some backend data in the future
   const fetchSomething = async () => {
     try {
@@ -26,14 +26,19 @@ const Home = () => {
       <section className="bg-gradient-hero text-primary-foreground py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <Shield className="h-16 w-16" />
+            {/* ✅ Ministry Logo from /public */}
+            <img
+              src="/minstriy_logo.png"
+              alt="Ministry Logo"
+              className="h-25 w-23 object-contain"
+            />
           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">SafeSpace</h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90">
             A safe, confidential platform for reporting abuse and seeking help
           </p>
           <p className="text-lg mb-8 opacity-80">
-            Your voice matters. Your safety is our priority. Report incidents confidentially 
+            Your voice matters. Your safety is our priority. Report incidents confidentially
             and connect with resources that can help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -42,7 +47,11 @@ const Home = () => {
                 Report Incident
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto bg-white/10 border-white/30 text-white hover:bg-white/20">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto bg-white/10 border-white/30 text-white hover:bg-white/20"
+            >
               Get Help Now
             </Button>
           </div>
@@ -67,7 +76,7 @@ const Home = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  Your identity and information are completely protected. 
+                  Your identity and information are completely protected.
                   All reports are encrypted and securely stored.
                 </CardDescription>
               </CardContent>
@@ -80,7 +89,7 @@ const Home = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  Our trained professionals provide empathetic support 
+                  Our trained professionals provide empathetic support
                   and connect you with appropriate resources.
                 </CardDescription>
               </CardContent>
@@ -93,7 +102,7 @@ const Home = () => {
               </CardHeader>
               <CardContent>
                 <CardDescription className="text-center">
-                  Help is available whenever you need it. 
+                  Help is available whenever you need it.
                   Submit reports anytime, anywhere, from any device.
                 </CardDescription>
               </CardContent>
@@ -111,7 +120,11 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="secondary" size="lg">Call 911</Button>
-            <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+            >
               National Hotline: 1-800-799-SAFE
             </Button>
           </div>
