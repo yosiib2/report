@@ -3,13 +3,16 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import ReportForm from "./pages/ReportForm";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import Logout from "./pages/Logout"; // <-- Import Logout
+import Logout from "./pages/Logout";
+
+import "./i18n"; // 👈 import translations
 
 const queryClient = new QueryClient();
 
@@ -26,7 +29,7 @@ const App = () => (
             <Route path="/report" element={<ReportForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/logout" element={<Logout />} /> {/* <-- Added Logout Route */}
+            <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
