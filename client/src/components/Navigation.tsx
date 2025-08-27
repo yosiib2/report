@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Shield, Home, FileText, BarChart3 } from "lucide-react";
+import { Home, FileText, BarChart3 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const Navigation = () => {
@@ -14,14 +14,25 @@ const Navigation = () => {
     i18n.changeLanguage(lng);
   };
 
+  // Set nav background color:
+  // - White when Home ("/") is active
+  // - Dark teal (#0D4D4D) when on /report or /dashboard
+  const navBgColor = isActive("/")
+    ? "bg-white"
+    : "bg-[#0D4D4D] text-white";
+
   return (
-    <nav className="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-lg">
+    <nav className={`sticky top-0 z-50 shadow-lg transition-colors duration-300 ${navBgColor}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2 text-white">
-            <Shield className="h-8 w-8 drop-shadow-md" />
-            <span className="text-xl font-extrabold tracking-wide">{t("safeSpace")}</span>
+          <div className="flex items-center space-x-2">
+            <img
+              src="/minstriy_logo.png"
+              alt="Ministry Logo"
+              className="h-8 w-8 object-contain drop-shadow-md"
+            />
+            <span className="text-xl font-extrabold tracking-wide">E-Report</span>
           </div>
 
           {/* Desktop Menu */}
@@ -32,8 +43,8 @@ const Navigation = () => {
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
                   isActive("/")
-                    ? "bg-white text-indigo-600 shadow-md hover:scale-105"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-105"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -47,8 +58,8 @@ const Navigation = () => {
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
                   isActive("/report")
-                    ? "bg-white text-purple-600 shadow-md hover:scale-105"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-purple-600 text-white shadow-md hover:scale-105"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <FileText className="h-4 w-4" />
@@ -62,8 +73,8 @@ const Navigation = () => {
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
                   isActive("/dashboard")
-                    ? "bg-white text-pink-600 shadow-md hover:scale-105"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-pink-600 text-white shadow-md hover:scale-105"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
@@ -91,8 +102,8 @@ const Navigation = () => {
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
                   isActive("/")
-                    ? "bg-white text-indigo-600 shadow-md hover:scale-110"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-110"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -105,8 +116,8 @@ const Navigation = () => {
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
                   isActive("/report")
-                    ? "bg-white text-purple-600 shadow-md hover:scale-110"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-purple-600 text-white shadow-md hover:scale-110"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <FileText className="h-4 w-4" />
@@ -119,8 +130,8 @@ const Navigation = () => {
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
                   isActive("/dashboard")
-                    ? "bg-white text-pink-600 shadow-md hover:scale-110"
-                    : "text-white hover:bg-white/20"
+                    ? "bg-pink-600 text-white shadow-md hover:scale-110"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
@@ -133,9 +144,9 @@ const Navigation = () => {
               defaultValue={i18n.language}
               className="bg-white text-gray-700 rounded-md px-1 py-0.5 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              <option value="en">EN</option>
-              <option value="am">AM</option>
-              <option value="om">OM</option>
+              <option value="en">English</option>
+              <option value="am">አማርኛ</option>
+              <option value="om">Afaan Oromoo</option>
             </select>
           </div>
         </div>

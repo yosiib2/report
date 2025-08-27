@@ -433,7 +433,7 @@ const Dashboard = () => {
             </div>
 
             {/* Reports */}
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
               {reports.map(report => (
                 <Card key={report._id} className="shadow-card">
                   <CardHeader className="flex justify-between items-center">

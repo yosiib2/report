@@ -1,4 +1,5 @@
 {
+  "safeSpace": "E-Report",
   "unauthorized": "Unauthorized",
   "sessionExpired": "Session expired or invalid token. Please log in again.",
   "fetchFailed": "Failed to fetch reports",
