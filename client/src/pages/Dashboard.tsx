@@ -26,6 +26,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const Dashboard = () => {
   const { t } = useTranslation();
   const [reports, setReports] = useState<Report[]>([]);
+  const [filteredReports, setFilteredReports] = useState<Report[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -38,6 +39,8 @@ const Dashboard = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [changeLoading, setChangeLoading] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Eye icon toggle states
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -79,6 +82,7 @@ const Dashboard = () => {
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
         setReports(sortedReports);
+        setFilteredReports(sortedReports);
       } else {
         if (response.status === 401 || response.status === 403) {
           toast({
@@ -132,6 +136,7 @@ const Dashboard = () => {
 
       if (response.ok) {
         setReports((prev) => prev.filter((report) => report._id !== id));
+        setFilteredReports((prev) => prev.filter((report) => report._id !== id));
         toast({
           title: t('reportDeleted'),
           description: result.message || t('reportDeletedDesc'),
@@ -236,6 +241,7 @@ const Dashboard = () => {
     localStorage.removeItem('token');
     setIsDirectorLoggedIn(false);
     setReports([]);
+    setFilteredReports([]);
     toast({ title: t('loggedOut'), description: t('signedOut'), variant: 'default' });
   };
 
@@ -267,6 +273,22 @@ const Dashboard = () => {
     setBrightness(value);
     document.documentElement.style.filter = `brightness(${value}%)`;
     localStorage.setItem('brightness', String(value));
+  };
+
+  // Search handler
+  const handleSearch = () => {
+    if (!searchTerm.trim()) {
+      setFilteredReports(reports);
+      return;
+    }
+
+    const term = searchTerm.toLowerCase();
+    const filtered = reports.filter(
+      (report) =>
+        report.name.toLowerCase().includes(term) ||
+        report.phone.toLowerCase().includes(term)
+    );
+    setFilteredReports(filtered);
   };
 
   const stats = {
@@ -311,19 +333,36 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-7xl mx-auto relative">
-        {/* Top bar */}
-        <div className="flex justify-between items-center mb-6">
+        {/* Top bar: Logout above Settings + Search */}
+        <div className="flex flex-col md:flex-row justify-end items-start md:items-center mb-6 space-y-2 md:space-y-0 md:space-x-2">
+          {/* Logout button */}
           <Button variant="destructive" className="flex items-center space-x-2" onClick={handleLogout}>
             <LogOut className="h-4 w-4" /> {t('logout')}
           </Button>
+
+          {/* Settings button */}
           <Button variant="outline" className="flex items-center space-x-2" onClick={() => setShowSettings(!showSettings)}>
             <Settings className="h-4 w-4" /> {t('settings')}
           </Button>
+
+          {/* Search input */}
+          <div className="flex items-center space-x-2">
+            <Input
+              type="text"
+              placeholder={t('searchNamePhone')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="px-2 py-1 text-sm"
+            />
+            <Button onClick={handleSearch}>
+              🔍 {t('search')}
+            </Button>
+          </div>
         </div>
 
         {/* Settings Panel */}
         {showSettings && (
-          <Card className="absolute right-0 top-12 w-80 p-4 shadow-lg bg-white dark:bg-gray-800 z-50 space-y-4">
+          <Card className="absolute right-0 top-24 w-80 p-4 shadow-lg bg-white dark:bg-gray-800 z-50 space-y-4">
             <CardHeader><CardTitle>{t('settings')}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               {/* Change Password */}
@@ -397,44 +436,47 @@ const Dashboard = () => {
               <p className="text-muted-foreground">{t('monitorReports')}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="shadow-card border-0 bg-gradient-card">
-                <CardHeader className="flex justify-between items-center pb-2">
-                  <CardTitle className="text-sm font-medium">{t('totalReports')}</CardTitle>
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-primary">{stats.total}</div>
-                  <p className="text-xs text-muted-foreground">{t('allTimeReports')}</p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-card border-0 bg-gradient-card">
-                <CardHeader className="flex justify-between items-center pb-2">
-                  <CardTitle className="text-sm font-medium">{t('thisMonth')}</CardTitle>
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-accent">{stats.thisMonth}</div>
-                  <p className="text-xs text-muted-foreground">{t('reportsThisMonth')}</p>
-                </CardContent>
-              </Card>
-              <Card className="shadow-card border-0 bg-gradient-card">
-                <CardHeader className="flex justify-between items-center pb-2">
-                  <CardTitle className="text-sm font-medium">{t('mostCommon')}</CardTitle>
-                  <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-destructive">
-                    {Object.keys(stats.byType).length > 0 ? Object.entries(stats.byType).sort(([,a],[,b])=>b-a)[0][0] : t('other')}
-                  </div>
-                  <p className="text-xs text-muted-foreground">{t('mostCommonType')}</p>
-                </CardContent>
-              </Card>
+            {/* Stats */}
+            <div className="max-w-3xl mx-auto mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card className="shadow-card border-0 bg-gradient-card">
+                  <CardHeader className="flex justify-between items-center pb-2">
+                    <CardTitle className="text-sm font-medium">{t('totalReports')}</CardTitle>
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-primary">{stats.total}</div>
+                    <p className="text-xs text-muted-foreground">{t('allTimeReports')}</p>
+                  </CardContent>
+                </Card>
+                <Card className="shadow-card border-0 bg-gradient-card">
+                  <CardHeader className="flex justify-between items-center pb-2">
+                    <CardTitle className="text-sm font-medium">{t('thisMonth')}</CardTitle>
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-accent">{stats.thisMonth}</div>
+                    <p className="text-xs text-muted-foreground">{t('reportsThisMonth')}</p>
+                  </CardContent>
+                </Card>
+                <Card className="shadow-card border-0 bg-gradient-card">
+                  <CardHeader className="flex justify-between items-center pb-2">
+                    <CardTitle className="text-sm font-medium">{t('mostCommon')}</CardTitle>
+                    <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-destructive">
+                      {Object.keys(stats.byType).length > 0 ? Object.entries(stats.byType).sort(([,a],[,b])=>b-a)[0][0] : t('other')}
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t('mostCommonType')}</p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
 
             {/* Reports */}
             <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
-              {reports.map(report => (
+              {filteredReports.map(report => (
                 <Card key={report._id} className="shadow-card">
                   <CardHeader className="flex justify-between items-center">
                     <CardTitle>{report.name} ({report.abuseType || t('other')})</CardTitle>
@@ -447,8 +489,8 @@ const Dashboard = () => {
                     <p><strong>{t('phone')}:</strong> {report.phone}</p>
                     <p><strong>{t('description')}:</strong> {report.description}</p>
                     <p className="text-xs text-muted-foreground">{t('submitted')}: {formatDate(report.createdAt)}</p>
-                    <Button variant="destructive" className="mt-2 flex items-center space-x-2" onClick={() => deleteReport(report._id)}>
-                      <Trash2 className="h-4 w-4"/> {t('deleteReport')}
+                    <Button variant="destructive" className="mt-2" onClick={() => deleteReport(report._id)}>
+                      <Trash2 className="h-4 w-4 mr-2" /> {t('delete')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -457,38 +499,30 @@ const Dashboard = () => {
           </>
         )}
 
-        {/* Login Form */}
+        {/* Login */}
         {!isDirectorLoggedIn && (
-          <Card className="max-w-md mx-auto mb-6 p-4 shadow-card">
-            <CardHeader className="flex items-center space-x-2 mb-4">
-              <Lock className="h-6 w-6" /> <CardTitle>{t('directorLogin')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleLogin} className="space-y-3">
-                <Input placeholder={t('username')} value={username} onChange={e => setUsername(e.target.value)} className="px-2 py-1 text-sm" />
-
-                <div className="relative">
-                  <Input
-                    type={showLoginPassword ? 'text' : 'password'}
-                    placeholder={t('password')}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="px-2 py-1 text-sm pr-10"
-                  />
-                  <span
-                    className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground"
-                    onClick={() => setShowLoginPassword(!showLoginPassword)}
-                  >
-                    {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </span>
-                </div>
-
-                <Button type="submit" className="w-full" disabled={loginLoading}>
-                  {loginLoading ? <><Loader2 className="h-4 w-4 animate-spin mr-2"/> {t('loggingIn')}</> : t('login')}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          <div className="max-w-md mx-auto">
+            <Card className="shadow-card">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2"><Lock className="h-5 w-5" /> <span>{t('directorLogin')}</span></CardTitle>
+                <CardDescription>{t('loginToAccess')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <Input type="text" placeholder={t('username')} value={username} onChange={e => setUsername(e.target.value)} />
+                  <div className="relative">
+                    <Input type={showLoginPassword ? 'text' : 'password'} placeholder={t('password')} value={password} onChange={e => setPassword(e.target.value)} className="pr-10" />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground" onClick={() => setShowLoginPassword(!showLoginPassword)}>
+                      {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </span>
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loginLoading}>
+                    {loginLoading ? t('loggingIn') : t('login')}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
         )}
       </div>
     </div>

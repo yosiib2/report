@@ -258,7 +258,7 @@ const ReportForm = () => {
             </form>
           </CardContent>
         </Card>
-
+ 
         {/* Immediate Danger Section */}
         <div className="mt-8 text-center">
           <div className="bg-[#0D4D4D] text-white p-4 rounded-lg">

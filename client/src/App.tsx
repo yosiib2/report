@@ -8,9 +8,7 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import ReportForm from "./pages/ReportForm";
 import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import Logout from "./pages/Logout";
 
 import "./i18n"; // 👈 import translations
 
@@ -27,9 +25,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/report" element={<ReportForm />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

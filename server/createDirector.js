@@ -19,8 +19,8 @@ const connectDB = async () => {
 const createDirector = async () => {
   await connectDB();
 
-  const username = 'ddirector@example.com';
-  const password = 'MySecurePass123';
+const username = 'Motri';
+const password = 'yosii123@';
 
   // Check if director already exists
   const existing = await Director.findOne({ username });

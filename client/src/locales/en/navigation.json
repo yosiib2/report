@@ -1,7 +1,7 @@
 
 {
   "home": "Home",
-  "reportAbuse": "Report Abuse",
-  "dashboard": "Dashboard",
+  "Report": "Report",
+  "Login": "Login",
   "safeSpace": "SafeSpace"
 }

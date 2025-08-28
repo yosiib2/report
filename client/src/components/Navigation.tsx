@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Home, FileText, BarChart3 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const Navigation = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -14,12 +15,11 @@ const Navigation = () => {
     i18n.changeLanguage(lng);
   };
 
-  // Set nav background color:
-  // - White when Home ("/") is active
-  // - Dark teal (#0D4D4D) when on /report or /dashboard
-  const navBgColor = isActive("/")
-    ? "bg-white"
-    : "bg-[#0D4D4D] text-white";
+  const handleReportClick = () => {
+    navigate("/report"); // Navigate to report page
+  };
+
+  const navBgColor = isActive("/") ? "bg-white" : "bg-[#0D4D4D] text-white";
 
   return (
     <nav className={`sticky top-0 z-50 shadow-lg transition-colors duration-300 ${navBgColor}`}>
@@ -42,9 +42,7 @@ const Navigation = () => {
                 variant={isActive("/") ? "default" : "ghost"}
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                  isActive("/")
-                    ? "bg-indigo-600 text-white shadow-md hover:scale-105"
-                    : "hover:bg-gray-100"
+                  isActive("/") ? "bg-indigo-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -52,33 +50,27 @@ const Navigation = () => {
               </Button>
             </Link>
 
-            <Link to="/report">
-              <Button
-                variant={isActive("/report") ? "default" : "ghost"}
-                size="sm"
-                className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                  isActive("/report")
-                    ? "bg-purple-600 text-white shadow-md hover:scale-105"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                <FileText className="h-4 w-4" />
-                <span>{t("reportAbuse")}</span>
-              </Button>
-            </Link>
+            <Button
+              onClick={handleReportClick}
+              size="sm"
+              className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
+                isActive("/report") ? "bg-purple-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
+              }`}
+            >
+              <FileText className="h-4 w-4" />
+              <span>{t("Report")}</span>
+            </Button>
 
             <Link to="/dashboard">
               <Button
                 variant={isActive("/dashboard") ? "default" : "ghost"}
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                  isActive("/dashboard")
-                    ? "bg-pink-600 text-white shadow-md hover:scale-105"
-                    : "hover:bg-gray-100"
+                  isActive("/dashboard") ? "bg-pink-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
-                <span>{t("dashboard")}</span>
+                <span>{t("Dashboard")}</span>
               </Button>
             </Link>
 
@@ -101,37 +93,29 @@ const Navigation = () => {
                 variant={isActive("/") ? "default" : "ghost"}
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
-                  isActive("/")
-                    ? "bg-indigo-600 text-white shadow-md hover:scale-110"
-                    : "hover:bg-gray-100"
+                  isActive("/") ? "bg-indigo-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
               </Button>
             </Link>
 
-            <Link to="/report">
-              <Button
-                variant={isActive("/report") ? "default" : "ghost"}
-                size="icon"
-                className={`rounded-full transition-transform duration-300 ${
-                  isActive("/report")
-                    ? "bg-purple-600 text-white shadow-md hover:scale-110"
-                    : "hover:bg-gray-100"
-                }`}
-              >
-                <FileText className="h-4 w-4" />
-              </Button>
-            </Link>
+            <Button
+              onClick={handleReportClick}
+              size="icon"
+              className={`rounded-full transition-transform duration-300 ${
+                isActive("/report") ? "bg-purple-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
+              }`}
+            >
+              <FileText className="h-4 w-4" />
+            </Button>
 
             <Link to="/dashboard">
               <Button
                 variant={isActive("/dashboard") ? "default" : "ghost"}
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
-                  isActive("/dashboard")
-                    ? "bg-pink-600 text-white shadow-md hover:scale-110"
-                    : "hover:bg-gray-100"
+                  isActive("/dashboard") ? "bg-pink-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
