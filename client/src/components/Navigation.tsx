@@ -22,17 +22,21 @@ const Navigation = () => {
   const navBgColor = isActive("/") ? "bg-white" : "bg-[#0D4D4D] text-white";
 
   return (
-    <nav className={`sticky top-0 z-50 shadow-lg transition-colors duration-300 ${navBgColor}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav
+      className={`sticky top-0 z-50 shadow-lg transition-colors duration-300 ${navBgColor}`}
+    >
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img
               src="/minstriy_logo.png"
               alt="Ministry Logo"
-              className="h-8 w-8 object-contain drop-shadow-md"
+              className="h-7 w-7 sm:h-8 sm:w-8 object-contain drop-shadow-md"
             />
-            <span className="text-xl font-extrabold tracking-wide">E-Report</span>
+            <span className="text-lg sm:text-xl font-extrabold tracking-wide">
+              E-Report
+            </span>
           </div>
 
           {/* Desktop Menu */}
@@ -42,7 +46,9 @@ const Navigation = () => {
                 variant={isActive("/") ? "default" : "ghost"}
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                  isActive("/") ? "bg-indigo-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
+                  isActive("/")
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-105"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -54,7 +60,9 @@ const Navigation = () => {
               onClick={handleReportClick}
               size="sm"
               className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                isActive("/report") ? "bg-purple-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
+                isActive("/report")
+                  ? "bg-purple-600 text-white shadow-md hover:scale-105"
+                  : "hover:bg-gray-100"
               }`}
             >
               <FileText className="h-4 w-4" />
@@ -66,7 +74,9 @@ const Navigation = () => {
                 variant={isActive("/dashboard") ? "default" : "ghost"}
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
-                  isActive("/dashboard") ? "bg-pink-600 text-white shadow-md hover:scale-105" : "hover:bg-gray-100"
+                  isActive("/dashboard")
+                    ? "bg-pink-600 text-white shadow-md hover:scale-105"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
@@ -78,7 +88,7 @@ const Navigation = () => {
             <select
               onChange={(e) => changeLanguage(e.target.value)}
               defaultValue={i18n.language}
-              className="ml-4 bg-white text-gray-700 rounded-md px-2 py-1 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="ml-4 bg-white text-gray-700 rounded-md px-2 py-1 text-sm sm:text-base shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               <option value="en">English</option>
               <option value="am">አማርኛ</option>
@@ -93,7 +103,9 @@ const Navigation = () => {
                 variant={isActive("/") ? "default" : "ghost"}
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
-                  isActive("/") ? "bg-indigo-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
+                  isActive("/")
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-110"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -104,7 +116,9 @@ const Navigation = () => {
               onClick={handleReportClick}
               size="icon"
               className={`rounded-full transition-transform duration-300 ${
-                isActive("/report") ? "bg-purple-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
+                isActive("/report")
+                  ? "bg-purple-600 text-white shadow-md hover:scale-110"
+                  : "hover:bg-gray-100"
               }`}
             >
               <FileText className="h-4 w-4" />
@@ -115,7 +129,9 @@ const Navigation = () => {
                 variant={isActive("/dashboard") ? "default" : "ghost"}
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
-                  isActive("/dashboard") ? "bg-pink-600 text-white shadow-md hover:scale-110" : "hover:bg-gray-100"
+                  isActive("/dashboard")
+                    ? "bg-pink-600 text-white shadow-md hover:scale-110"
+                    : "hover:bg-gray-100"
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
@@ -126,11 +142,11 @@ const Navigation = () => {
             <select
               onChange={(e) => changeLanguage(e.target.value)}
               defaultValue={i18n.language}
-              className="bg-white text-gray-700 rounded-md px-1 py-0.5 shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="bg-white text-gray-700 rounded-md px-1.5 py-0.5 text-xs shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              <option value="en">English</option>
-              <option value="am">አማርኛ</option>
-              <option value="om">Afaan Oromoo</option>
+              <option value="en">EN</option>
+              <option value="am">AM</option>
+              <option value="om">OM</option>
             </select>
           </div>
         </div>
