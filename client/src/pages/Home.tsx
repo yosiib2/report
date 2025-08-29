@@ -30,9 +30,9 @@ const Home = () => {
         {/* Background overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 px-3 sm:px-4">
+        <div className="relative max-w-7xl mx-auto flex flex-row flex-wrap items-center gap-6 md:gap-12 px-3 sm:px-4">
           {/* Left Side: Text */}
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex-1 min-w-[260px] text-center md:text-left">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight leading-tight">
               {t("E-Report")}
             </h1>
@@ -62,11 +62,11 @@ const Home = () => {
           </div>
 
           {/* Right Side: Image */}
-          <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
+          <div className="flex-shrink-0 flex justify-center w-full md:w-1/2">
             <img
               src="/one.png"
               alt="Hero Illustration"
-              className="max-h-[420px] w-auto object-contain"
+              className="max-h-[360px] sm:max-h-[420px] w-auto object-contain"
             />
           </div>
         </div>
