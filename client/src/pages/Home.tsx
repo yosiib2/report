@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Lock, Heart, Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { FaTelegramPlane, FaFacebookF } from "react-icons/fa";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -23,18 +22,18 @@ const Home = () => {
 
   return (
     <div
-      className="min-h-screen text-white flex flex-col"
+      className="text-white flex flex-col"
       style={{ backgroundColor: "#166866" }}
     >
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-6 px-3 sm:px-4 bg-transparent">
+      {/* ================= Hero Section ================= */}
+      <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6 bg-transparent">
         {/* Background overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12 px-3 sm:px-4 animate-fadeIn">
+        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 px-3 sm:px-4">
           {/* Left Side: Text */}
           <div className="flex-1 text-center md:text-left">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight leading-tight">
               {t("E-Report")}
             </h1>
 
@@ -49,13 +48,13 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
               <Button
                 onClick={handleReportClick}
-                className="w-full sm:w-auto px-5 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base lg:text-lg font-semibold rounded-xl shadow-md hover:scale-105 transition-transform"
+                className="w-full sm:w-auto px-5 sm:px-6 py-2 text-sm sm:text-base lg:text-lg font-semibold rounded-xl shadow-md hover:scale-105 transition-transform"
               >
                 {t("Report")}
               </Button>
               <Button
                 variant="outline"
-                className="w-full sm:w-auto px-5 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base lg:text-lg font-semibold rounded-xl bg-white/20 border-white/40 text-white hover:bg-white/30 hover:scale-105 transition-transform"
+                className="w-full sm:w-auto px-5 sm:px-6 py-2 text-sm sm:text-base lg:text-lg font-semibold rounded-xl bg-white/20 border-white/40 text-white hover:bg-white/30 hover:scale-105 transition-transform"
               >
                 {t("Help")}
               </Button>
@@ -64,24 +63,24 @@ const Home = () => {
 
           {/* Right Side: Image */}
           <div className="flex-shrink-0 w-full md:w-1/2 flex justify-center">
-            {/* <img
-              src="/phonee.jpg"
+            <img
+              src="/one.png"
               alt="Hero Illustration"
-              className="w-64 sm:w-72 lg:w-80 h-auto object-contain"
-            /> */}
+              className="max-h-[420px] w-auto object-contain"
+            />
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-6 px-3 sm:px-4 md:px-6 bg-white rounded-xl shadow-sm mx-2 md:mx-4">
+      {/* ================= Features Section ================= */}
+      <section className="py-10 px-3 sm:px-4 md:px-6 bg-white rounded-xl shadow-sm mx-2 md:mx-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Heading */}
           <div className="mb-6 md:mb-8 text-center md:text-left">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 text-gray-900">
               {t("E-Report")}
             </h2>
-            <p className="text-base sm:text-lg opacity-90">
+            <p className="text-base sm:text-lg opacity-90 text-gray-700">
               {t("safeSpaceCommitment")}
             </p>
           </div>
@@ -136,8 +135,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-8 px-3 sm:px-4 md:px-6 bg-transparent">
+      {/* ================= Call to Action ================= */}
+      <section className="py-10 px-3 sm:px-4 md:px-6 bg-transparent">
         <div className="max-w-4xl mx-auto text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
             {t("readyFirstStep")}

@@ -16,7 +16,7 @@ const Navigation = () => {
   };
 
   const handleReportClick = () => {
-    navigate("/report"); // Navigate to report page
+    navigate("/report");
   };
 
   const navBgColor = isActive("/") ? "bg-white" : "bg-[#0D4D4D] text-white";
@@ -61,7 +61,7 @@ const Navigation = () => {
               size="sm"
               className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
                 isActive("/report")
-                  ? "bg-purple-600 text-white shadow-md hover:scale-105"
+                  ? "bg-indigo-600 text-white shadow-md hover:scale-105"
                   : "hover:bg-gray-100"
               }`}
             >
@@ -75,7 +75,7 @@ const Navigation = () => {
                 size="sm"
                 className={`flex items-center space-x-2 rounded-lg transition-all duration-300 ${
                   isActive("/dashboard")
-                    ? "bg-pink-600 text-white shadow-md hover:scale-105"
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-105"
                     : "hover:bg-gray-100"
                 }`}
               >
@@ -117,7 +117,7 @@ const Navigation = () => {
               size="icon"
               className={`rounded-full transition-transform duration-300 ${
                 isActive("/report")
-                  ? "bg-purple-600 text-white shadow-md hover:scale-110"
+                  ? "bg-indigo-600 text-white shadow-md hover:scale-110"
                   : "hover:bg-gray-100"
               }`}
             >
@@ -130,7 +130,7 @@ const Navigation = () => {
                 size="icon"
                 className={`rounded-full transition-transform duration-300 ${
                   isActive("/dashboard")
-                    ? "bg-pink-600 text-white shadow-md hover:scale-110"
+                    ? "bg-indigo-600 text-white shadow-md hover:scale-110"
                     : "hover:bg-gray-100"
                 }`}
               >

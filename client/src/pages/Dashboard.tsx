@@ -1,3 +1,4 @@
+// Dashboard Part 1: Imports, State, Hooks, Functions
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -52,6 +53,7 @@ const Dashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [brightness, setBrightness] = useState(100);
 
+  // On component mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) fetchReports(token);
@@ -66,6 +68,7 @@ const Dashboard = () => {
     document.documentElement.classList.toggle('dark', savedDarkMode);
   }, []);
 
+  // Fetch Reports
   const fetchReports = async (token: string) => {
     try {
       setIsLoading(true);
@@ -108,6 +111,7 @@ const Dashboard = () => {
     }
   };
 
+  // Delete report
   const deleteReport = async (id: string) => {
     const confirmed = window.confirm(t('confirmDelete'));
     if (!confirmed) return;
@@ -154,6 +158,7 @@ const Dashboard = () => {
     }
   };
 
+  // Login handler
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
@@ -193,6 +198,7 @@ const Dashboard = () => {
     }
   };
 
+  // Change password
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!oldPassword || !newPassword) {
@@ -237,6 +243,7 @@ const Dashboard = () => {
     }
   };
 
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsDirectorLoggedIn(false);
@@ -245,11 +252,13 @@ const Dashboard = () => {
     toast({ title: t('loggedOut'), description: t('signedOut'), variant: 'default' });
   };
 
+  // Format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   };
 
+  // Abuse type color
   const getAbuseTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       Physical: 'bg-destructive text-destructive-foreground',
@@ -268,14 +277,14 @@ const Dashboard = () => {
     localStorage.setItem('darkMode', String(!darkMode));
   };
 
-  // Brightness control
+  // Brightness
   const handleBrightnessSlider = (value: number) => {
     setBrightness(value);
     document.documentElement.style.filter = `brightness(${value}%)`;
     localStorage.setItem('brightness', String(value));
   };
 
-  // Search handler
+  // Search
   const handleSearch = () => {
     if (!searchTerm.trim()) {
       setFilteredReports(reports);
@@ -331,34 +340,37 @@ const Dashboard = () => {
     );
 
   return (
+    // Part 2: JSX Render
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-7xl mx-auto relative">
-        {/* Top bar: Logout above Settings + Search */}
-        <div className="flex flex-col md:flex-row justify-end items-start md:items-center mb-6 space-y-2 md:space-y-0 md:space-x-2">
-          {/* Logout button */}
-          <Button variant="destructive" className="flex items-center space-x-2" onClick={handleLogout}>
-            <LogOut className="h-4 w-4" /> {t('logout')}
-          </Button>
-
-          {/* Settings button */}
-          <Button variant="outline" className="flex items-center space-x-2" onClick={() => setShowSettings(!showSettings)}>
-            <Settings className="h-4 w-4" /> {t('settings')}
-          </Button>
-
-          {/* Search input */}
-          <div className="flex items-center space-x-2">
-            <Input
-              type="text"
-              placeholder={t('searchNamePhone')}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-2 py-1 text-sm"
-            />
-            <Button onClick={handleSearch}>
-              🔍 {t('search')}
+           {/* Top bar: Logout, Settings, Search */}
+        {isDirectorLoggedIn && (
+          <div className="flex flex-col md:flex-row justify-end items-start md:items-center mb-6 space-y-2 md:space-y-0 md:space-x-2">
+            {/* Logout button */}
+            <Button variant="destructive" className="flex items-center space-x-2" onClick={handleLogout}>
+              <LogOut className="h-4 w-4" /> {t('logout')}
             </Button>
+
+            {/* Settings button */}
+            <Button variant="outline" className="flex items-center space-x-2" onClick={() => setShowSettings(!showSettings)}>
+              <Settings className="h-4 w-4" /> {t('settings')}
+            </Button>
+
+            {/* Search input */}
+            <div className="flex items-center space-x-2">
+              <Input
+                type="text"
+                placeholder={t('searchNamePhone')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-2 py-1 text-sm"
+              />
+              <Button onClick={handleSearch}>
+                🔍 {t('search')}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Settings Panel */}
         {showSettings && (
@@ -427,7 +439,7 @@ const Dashboard = () => {
           </Card>
         )}
 
-        {/* Dashboard Stats & Reports */}
+        {/* Dashboard Stats */}
         {isDirectorLoggedIn && (
           <>
             <div className="text-center mb-6">
@@ -436,7 +448,7 @@ const Dashboard = () => {
               <p className="text-muted-foreground">{t('monitorReports')}</p>
             </div>
 
-            {/* Stats */}
+            {/* Stats Cards */}
             <div className="max-w-3xl mx-auto mb-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="shadow-card border-0 bg-gradient-card">
@@ -449,6 +461,7 @@ const Dashboard = () => {
                     <p className="text-xs text-muted-foreground">{t('allTimeReports')}</p>
                   </CardContent>
                 </Card>
+
                 <Card className="shadow-card border-0 bg-gradient-card">
                   <CardHeader className="flex justify-between items-center pb-2">
                     <CardTitle className="text-sm font-medium">{t('thisMonth')}</CardTitle>
@@ -459,6 +472,7 @@ const Dashboard = () => {
                     <p className="text-xs text-muted-foreground">{t('reportsThisMonth')}</p>
                   </CardContent>
                 </Card>
+
                 <Card className="shadow-card border-0 bg-gradient-card">
                   <CardHeader className="flex justify-between items-center pb-2">
                     <CardTitle className="text-sm font-medium">{t('mostCommon')}</CardTitle>
@@ -474,7 +488,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Reports */}
+            {/* Reports List */}
             <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
               {filteredReports.map(report => (
                 <Card key={report._id} className="shadow-card">
@@ -499,7 +513,7 @@ const Dashboard = () => {
           </>
         )}
 
-        {/* Login */}
+        {/* Login Form */}
         {!isDirectorLoggedIn && (
           <div className="max-w-md mx-auto">
             <Card className="shadow-card">
