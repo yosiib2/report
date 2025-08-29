@@ -21,7 +21,7 @@ const Home = () => {
   };
 
   return (
-    <div className="text-white flex flex-col bg-[#166866]">
+    <div className="text-white flex flex-col bg-[#166866] min-h-screen">
       {/* ================= Hero Section ================= */}
       <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6">
         {/* Background overlay */}
@@ -29,7 +29,7 @@ const Home = () => {
 
         <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Left Side: Text */}
-          <div className="flex-1 min-w-[260px] text-center md:text-left">
+          <div className="flex-1 min-w-[260px] text-center md:text-left z-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
               {t("E-Report")}
             </h1>
@@ -57,11 +57,11 @@ const Home = () => {
           </div>
 
           {/* Right Side: Image */}
-          <div className="flex-shrink-0 flex justify-center w-full md:w-1/2">
+          <div className="flex-shrink-0 flex justify-center w-full md:w-1/2 z-10">
             <img
               src="/one.png"
               alt="Hero Illustration"
-              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl object-contain"
+              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain"
             />
           </div>
         </div>
@@ -70,7 +70,6 @@ const Home = () => {
       {/* ================= Features Section ================= */}
       <section className="py-10 px-3 sm:px-4 md:px-6 bg-white rounded-xl shadow-sm mx-2 md:mx-4">
         <div className="max-w-6xl mx-auto">
-          {/* Section Heading */}
           <div className="mb-6 md:mb-8 text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 text-gray-900">
               {t("E-Report")}
@@ -80,7 +79,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Feature Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 text-center">
             <Card className="shadow-md border border-gray-100 bg-white text-gray-900 rounded-xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="text-center">
@@ -128,34 +126,18 @@ const Home = () => {
       </section>
 
       {/* ================= Call to Action ================= */}
-      <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent">
+      <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent flex flex-col items-center md:items-start gap-6">
         {/* Ministry Logo */}
-        <div className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
           <img
             src="/minstriy_logo.png"
             alt="Ministry Logo"
-            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
+            className="w-full h-full object-contain"
           />
         </div>
 
-        {/* Contact Info */}
-        <div className="absolute right-4 bottom-4 sm:right-6 sm:bottom-6 flex flex-col items-end space-y-2 text-sm sm:text-base">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
-            <FaFacebook className="text-blue-500" /> Facebook
-          </a>
-          <a href="https://t.me/yourchannel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
-            <FaTelegram className="text-sky-400" /> Telegram
-          </a>
-          <a href="mailto:example@email.com" className="flex items-center gap-2 hover:underline">
-            <Mail className="w-4 h-4" /> example@email.com
-          </a>
-          <a href="tel:+251900000000" className="flex items-center gap-2 hover:underline">
-            <Phone className="w-4 h-4" /> +251 900 000 000
-          </a>
-        </div>
-
         {/* CTA Content */}
-        <div className="max-w-4xl mx-auto text-center md:text-left mt-6 md:mt-0">
+        <div className="max-w-4xl text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
             {t("readyFirstStep")}
           </h2>
@@ -170,6 +152,22 @@ const Home = () => {
               {t("startReport")}
             </Button>
           </div>
+        </div>
+
+        {/* Contact Info */}
+        <div className="flex flex-col sm:flex-row md:flex-col items-center md:items-end gap-2 sm:gap-4 mt-4 md:mt-6 text-sm sm:text-base text-white">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+            <FaFacebook className="text-blue-500" /> Facebook
+          </a>
+          <a href="https://t.me/yourchannel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+            <FaTelegram className="text-sky-400" /> Telegram
+          </a>
+          <a href="mailto:example@email.com" className="flex items-center gap-2 hover:underline">
+            <Mail className="w-4 h-4" /> example@email.com
+          </a>
+          <a href="tel:+251900000000" className="flex items-center gap-2 hover:underline">
+            <Phone className="w-4 h-4" /> +251 900 000 000
+          </a>
         </div>
       </section>
     </div>
