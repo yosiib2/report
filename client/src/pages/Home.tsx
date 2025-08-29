@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,16 +9,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Lock, Heart, Phone } from "lucide-react";
+import { Lock, Heart, Phone, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { FaFacebook, FaTelegram } from "react-icons/fa";
 
 const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Handle Report button click
   const handleReportClick = () => {
-    navigate("/report"); // Navigate to report form
+    navigate("/report");
   };
 
   return (
@@ -136,7 +137,33 @@ const Home = () => {
       </section>
 
       {/* ================= Call to Action ================= */}
-      <section className="py-10 px-3 sm:px-4 md:px-6 bg-transparent">
+      <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent">
+        {/* Ministry Logo in bottom-left */}
+        <div className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6">
+          <img
+            src="/minstriy_logo.png"
+            alt="Ministry Logo"
+            className="w-16 h-16 object-contain sm:w-20 sm:h-20 md:w-24 md:h-24"
+          />
+        </div>
+
+        {/* Contact Info in bottom-right */}
+        <div className="absolute right-4 bottom-4 sm:right-6 sm:bottom-6 flex flex-col items-end space-y-2 text-sm sm:text-base">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+            <FaFacebook className="text-blue-500" /> Facebook
+          </a>
+          <a href="https://t.me/yourchannel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+            <FaTelegram className="text-sky-400" /> Telegram
+          </a>
+          <a href="mailto:example@email.com" className="flex items-center gap-2 hover:underline">
+            <Mail className="w-4 h-4" /> example@email.com
+          </a>
+          <a href="tel:+251900000000" className="flex items-center gap-2 hover:underline">
+            <Phone className="w-4 h-4" /> +251 900 000 000
+          </a>
+        </div>
+
+        {/* CTA Content */}
         <div className="max-w-4xl mx-auto text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
             {t("readyFirstStep")}
