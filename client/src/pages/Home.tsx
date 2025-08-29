@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -22,26 +21,21 @@ const Home = () => {
   };
 
   return (
-    <div
-      className="text-white flex flex-col"
-      style={{ backgroundColor: "#166866" }}
-    >
+    <div className="text-white flex flex-col bg-[#166866]">
       {/* ================= Hero Section ================= */}
-      <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6 bg-transparent">
+      <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6">
         {/* Background overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
-        <div className="relative max-w-7xl mx-auto flex flex-row flex-wrap items-center gap-6 md:gap-12 px-3 sm:px-4">
+        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Left Side: Text */}
           <div className="flex-1 min-w-[260px] text-center md:text-left">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
               {t("E-Report")}
             </h1>
-
-            <p className="text-sm sm:text-base lg:text-lg mb-3 opacity-90 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg mb-2 opacity-90 leading-relaxed">
               {t("homeDescription")}
             </p>
-
             <p className="text-xs sm:text-sm lg:text-base mb-5 opacity-80 leading-relaxed">
               {t("homeSubDescription")}
             </p>
@@ -67,7 +61,7 @@ const Home = () => {
             <img
               src="/one.png"
               alt="Hero Illustration"
-              className="max-h-[360px] sm:max-h-[420px] w-auto object-contain"
+              className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl object-contain"
             />
           </div>
         </div>
@@ -88,7 +82,6 @@ const Home = () => {
 
           {/* Feature Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 text-center">
-            {/* Confidentiality */}
             <Card className="shadow-md border border-gray-100 bg-white text-gray-900 rounded-xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="text-center">
                 <Lock className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 text-indigo-600 mx-auto mb-2.5" />
@@ -103,7 +96,6 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            {/* Compassionate Support */}
             <Card className="shadow-md border border-gray-100 bg-white text-gray-900 rounded-xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="text-center">
                 <Heart className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 text-pink-500 mx-auto mb-2.5" />
@@ -118,7 +110,6 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            {/* 24/7 Availability */}
             <Card className="shadow-md border border-gray-100 bg-white text-gray-900 rounded-xl p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="text-center">
                 <Phone className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 text-green-500 mx-auto mb-2.5" />
@@ -138,16 +129,16 @@ const Home = () => {
 
       {/* ================= Call to Action ================= */}
       <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent">
-        {/* Ministry Logo in bottom-left */}
+        {/* Ministry Logo */}
         <div className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6">
           <img
             src="/minstriy_logo.png"
             alt="Ministry Logo"
-            className="w-16 h-16 object-contain sm:w-20 sm:h-20 md:w-24 md:h-24"
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
           />
         </div>
 
-        {/* Contact Info in bottom-right */}
+        {/* Contact Info */}
         <div className="absolute right-4 bottom-4 sm:right-6 sm:bottom-6 flex flex-col items-end space-y-2 text-sm sm:text-base">
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
             <FaFacebook className="text-blue-500" /> Facebook
@@ -164,7 +155,7 @@ const Home = () => {
         </div>
 
         {/* CTA Content */}
-        <div className="max-w-4xl mx-auto text-center md:text-left">
+        <div className="max-w-4xl mx-auto text-center md:text-left mt-6 md:mt-0">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
             {t("readyFirstStep")}
           </h2>
