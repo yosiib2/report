@@ -24,11 +24,9 @@ const Home = () => {
     <div className="text-white flex flex-col bg-[#166866] min-h-screen">
       {/* ================= Hero Section ================= */}
       <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6">
-        {/* Background overlay */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
 
         <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* Left Side: Text */}
           <div className="flex-1 min-w-[260px] text-center md:text-left z-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
               {t("E-Report")}
@@ -56,7 +54,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Right Side: Image */}
           <div className="flex-shrink-0 flex justify-center w-full md:w-1/2 z-10">
             <img
               src="/one.png"
@@ -125,26 +122,17 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ================= Call to Action ================= */}
-      <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent flex flex-col items-center md:items-start gap-6">
-        {/* Ministry Logo */}
-        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
-          <img
-            src="/minstriy_logo.png"
-            alt="Ministry Logo"
-            className="w-full h-full object-contain"
-          />
-        </div>
-
-        {/* CTA Content */}
-        <div className="max-w-4xl text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
-            {t("readyFirstStep")}
-          </h2>
-          <p className="text-base sm:text-lg mb-5 md:mb-8 opacity-90">
-            {t("firstStepDesc")}
-          </p>
-          <div>
+      {/* ================= Call to Action + Footer ================= */}
+      <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent flex-1">
+        <div className="max-w-7xl mx-auto flex flex-col gap-6 relative">
+          {/* CTA Text (Moved slightly up) */}
+          <div className="max-w-4xl mx-auto text-center md:text-left mb-24">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
+              {t("readyFirstStep")}
+            </h2>
+            <p className="text-base sm:text-lg mb-5 md:mb-8 opacity-90">
+              {t("firstStepDesc")}
+            </p>
             <Button
               onClick={handleReportClick}
               className="px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 text-sm sm:text-base lg:text-lg font-semibold bg-white text-indigo-600 rounded-xl shadow-lg hover:scale-105 transition-transform"
@@ -152,22 +140,52 @@ const Home = () => {
               {t("startReport")}
             </Button>
           </div>
-        </div>
 
-        {/* Contact Info */}
-        <div className="flex flex-col sm:flex-row md:flex-col items-center md:items-end gap-2 sm:gap-4 mt-4 md:mt-6 text-sm sm:text-base text-white">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
-            <FaFacebook className="text-blue-500" /> Facebook
-          </a>
-          <a href="https://t.me/yourchannel" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
-            <FaTelegram className="text-sky-400" /> Telegram
-          </a>
-          <a href="mailto:example@email.com" className="flex items-center gap-2 hover:underline">
-            <Mail className="w-4 h-4" /> example@email.com
-          </a>
-          <a href="tel:+251900000000" className="flex items-center gap-2 hover:underline">
-            <Phone className="w-4 h-4" /> +251 900 000 000
-          </a>
+          {/* Bottom corners: Logo left, Contact right */}
+          <div className="absolute bottom-0 w-full flex justify-between px-3 md:px-0">
+            {/* Logo bottom-left */}
+            <div className="flex items-start">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+                <img
+                  src="/minstriy_logo.png"
+                  alt="Ministry Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Contact info bottom-right */}
+            <div className="flex flex-col items-end gap-2 sm:gap-4 text-sm sm:text-base text-white">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <FaFacebook className="text-blue-500" /> Facebook
+              </a>
+              <a
+                href="https://t.me/yourchannel"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <FaTelegram className="text-sky-400" /> Telegram
+              </a>
+              <a
+                href="mailto:example@email.com"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <Mail className="w-4 h-4" /> example@email.com
+              </a>
+              <a
+                href="tel:+251900000000"
+                className="flex items-center gap-2 hover:underline"
+              >
+                <Phone className="w-4 h-4" /> +251 900 000 000
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>
