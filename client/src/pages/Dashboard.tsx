@@ -5,10 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Switch } from '@/components/ui/switch';
 import { Slider } from '@/components/ui/slider';
 import { Trash2, LogOut, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch'; // ✅ you forgot to import Switch
 
 interface Report {
   _id: string;
@@ -28,7 +28,7 @@ interface Report {
   createdAt: string;
 }
 
-// ✅ ensure API URL is set correctly
+// ✅ correct API url
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Dashboard = () => {
@@ -56,7 +56,7 @@ const Dashboard = () => {
   const [changingPassword, setChangingPassword] = useState(false);
 
   // -------------------------------
-  // INITIALIZE SETTINGS & FETCH DATA
+  // INIT SETTINGS + FETCH REPORTS
   // -------------------------------
   useEffect(() => {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -88,7 +88,7 @@ const Dashboard = () => {
   }, [searchTerm, reports]);
 
   // -------------------------------
-  // FETCH REPORTS
+  // FETCH REPORTS (always with token)
   // -------------------------------
   const fetchReports = async (token: string) => {
     setIsLoading(true);
@@ -98,6 +98,10 @@ const Dashboard = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
+      if (res.status === 401) {
+        handleLogout(); // auto-logout if token expired
+        return;
+      }
       if (!res.ok) throw new Error(data?.message || 'Failed to fetch reports');
 
       const finalReports: Report[] = Array.isArray(data) ? data : data?.data || [];
@@ -113,13 +117,12 @@ const Dashboard = () => {
     }
   };
   // -------------------------------
-  // LOGIN HANDLER
+  // LOGIN
   // -------------------------------
   const handleLogin = async () => {
     if (!username || !password) {
       return toast({ title: 'Error', description: 'Please enter username and password', variant: 'destructive' });
     }
-
     setLoginLoading(true);
     try {
       const res = await fetch(`${apiUrl}/api/auth/login`, {
@@ -143,7 +146,7 @@ const Dashboard = () => {
   };
 
   // -------------------------------
-  // LOGOUT HANDLER
+  // LOGOUT
   // -------------------------------
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -167,6 +170,7 @@ const Dashboard = () => {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       });
       const data = await res.json();
+      if (res.status === 401) return handleLogout();
       if (!res.ok) throw new Error(data?.message || 'Failed to delete report');
 
       setReports(prev => prev.filter(r => r._id !== id));
@@ -179,7 +183,7 @@ const Dashboard = () => {
   };
 
   // -------------------------------
-  // DARK MODE & BRIGHTNESS
+  // DARK MODE + BRIGHTNESS
   // -------------------------------
   const toggleDarkMode = () => {
     const newValue = !darkMode;
@@ -214,6 +218,7 @@ const Dashboard = () => {
         body: JSON.stringify({ oldPassword, newPassword }),
       });
       const data = await res.json();
+      if (res.status === 401) return handleLogout();
       if (!res.ok) throw new Error(data?.message || 'Failed to change password');
 
       toast({ title: 'Success', description: data.message || 'Password changed successfully', variant: 'default' });
@@ -256,14 +261,10 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* SEARCH */}
-      {isDirectorLoggedIn && (
-        <Input placeholder="Search by name or phone" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
-      )}
-
-      {/* REPORTS */}
+      {/* SEARCH + REPORTS */}
       {isDirectorLoggedIn && (
         <>
+          <Input placeholder="Search by name or phone" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
           {isLoading ? (
             <Skeleton className="h-32 w-full" />
           ) : error ? (
@@ -311,7 +312,7 @@ const Dashboard = () => {
         </>
       )}
 
-      {/* SETTINGS PANEL */}
+      {/* SETTINGS */}
       {showSettings && (
         <div className="p-4 border rounded-lg space-y-4 max-w-md">
           <div className="flex justify-between items-center">
