@@ -10,13 +10,16 @@ dotenv.config();
 
 const app = express();
 
+// ==========================
 // Middleware: CORS
+// ==========================
 app.use(
   cors({
     origin: [
-      'http://localhost:8081',            // your frontend during dev
-      process.env.CLIENT_URL,             // optional from .env
-      'https://your-frontend.vercel.app' // deployed frontend
+      'http://localhost:8080',             // your frontend during dev
+      'http://localhost:8081',             // alternative local dev port
+      process.env.CLIENT_URL,              // from .env (optional)
+      'https://report-then.vercel.app'     // your deployed frontend
     ],
     credentials: true, // allow cookies/auth headers
   })
@@ -29,13 +32,17 @@ app.use(express.json());
 // ==========================
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
+// ==========================
 // Routes
+// ==========================
 app.use('/api/reports', reportRoutes);
 app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => res.send('API Running...'));
 
+// ==========================
 // Start server after DB connection
+// ==========================
 const startServer = async () => {
   await connectDB();
   const PORT = process.env.PORT || 5000;

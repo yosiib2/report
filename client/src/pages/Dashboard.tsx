@@ -250,7 +250,7 @@ const Dashboard = () => {
       {isDirectorLoggedIn && (
         <Input placeholder="Search by name or phone" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
       )}
-
+      
       {/* REPORTS */}
       {isDirectorLoggedIn && (
         <>
