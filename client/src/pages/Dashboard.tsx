@@ -24,11 +24,12 @@ interface Report {
   incidentTime: string;
   incidentPlace: string;
   incidentDay: string;
-  image?: string; // **new optional field**
+  image?: string;
   createdAt: string;
 }
 
-const apiUrl = import.meta.env.VITE_API_URL ?? 'http://localhost:5000';
+// ✅ ensure API URL is set correctly
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -79,11 +80,16 @@ const Dashboard = () => {
       return;
     }
     const term = searchTerm.toLowerCase();
-    setFilteredReports(reports.filter(r =>
-      r.name.toLowerCase().includes(term) || r.phone.toLowerCase().includes(term)
-    ));
+    setFilteredReports(
+      reports.filter(r =>
+        r.name.toLowerCase().includes(term) || r.phone.toLowerCase().includes(term)
+      )
+    );
   }, [searchTerm, reports]);
 
+  // -------------------------------
+  // FETCH REPORTS
+  // -------------------------------
   const fetchReports = async (token: string) => {
     setIsLoading(true);
     setError(null);
@@ -106,12 +112,13 @@ const Dashboard = () => {
       setIsLoading(false);
     }
   };
-
   // -------------------------------
   // LOGIN HANDLER
   // -------------------------------
   const handleLogin = async () => {
-    if (!username || !password) return toast({ title: 'Error', description: 'Please enter username and password', variant: 'destructive' });
+    if (!username || !password) {
+      return toast({ title: 'Error', description: 'Please enter username and password', variant: 'destructive' });
+    }
 
     setLoginLoading(true);
     try {
@@ -170,6 +177,7 @@ const Dashboard = () => {
       toast({ title: 'Error', description: message, variant: 'destructive' });
     }
   };
+
   // -------------------------------
   // DARK MODE & BRIGHTNESS
   // -------------------------------
@@ -191,7 +199,9 @@ const Dashboard = () => {
   // CHANGE PASSWORD
   // -------------------------------
   const handleChangePassword = async () => {
-    if (!oldPassword || !newPassword) return toast({ title: 'Error', description: 'Please fill both fields', variant: 'destructive' });
+    if (!oldPassword || !newPassword) {
+      return toast({ title: 'Error', description: 'Please fill both fields', variant: 'destructive' });
+    }
 
     const token = localStorage.getItem('token');
     if (!token) return handleLogout();
@@ -250,7 +260,7 @@ const Dashboard = () => {
       {isDirectorLoggedIn && (
         <Input placeholder="Search by name or phone" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
       )}
-      
+
       {/* REPORTS */}
       {isDirectorLoggedIn && (
         <>
@@ -280,7 +290,6 @@ const Dashboard = () => {
                     <p><strong>Incident Place:</strong> {report.incidentPlace}</p>
                     <p><strong>Incident Day:</strong> {report.incidentDay}</p>
 
-                    {/* DISPLAY IMAGE IF EXISTS */}
                     {report.image && (
                       <div className="mt-2">
                         <img
