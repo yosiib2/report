@@ -19,10 +19,9 @@
   "phonePlaceholder": "Enter your phone number",
   "abuseType": "Type of Abuse *",
   "selectAbuseType": "Select abuse type",
-  "physical": "Physical",
-  "emotional": "Emotional",
-  "sexual": "Sexual",
-  "financial": "Financial",
+  "emotional": "Physical abuse",
+  "sexual": "Offensive words",
+  "financial": "Deception with benefits",
   "other": "Other",
   "description": "Explain in detail the attack that was committed against you *",
   "descriptionPlaceholder": "Explain in detail how the abuse was carried out",
@@ -30,5 +29,28 @@
   "submitting": "Submitting Report...",
   "submitReport": "Submit Report",
   "immediateDanger": "In Immediate Danger?",
-  "immediateDangerDesc": "If you are in immediate physical danger, please call 911 or your local emergency services immediately."
+  "immediateDangerDesc": "If you are in immediate physical danger, please call 911 or your local emergency services immediately.",
+  "incidentPlace": "The location where the abuse took place",
+   "incidentDay": "The day the abuse occurred",
+   "uploadImage": "uploadImage",
+   "incidentTime": "The time the abuse happened",
+   "educationLevel":"education Level",
+   "selectJobType":"Select Job Type",
+   "jobType":"Job Type",
+   "sex": "Sex",
+   "selectSex": "Select Sex",
+   "workPosition":"workPostion",
+   "male": "male",
+   "female": "female",
+   "selectEducation":"select Education Level",
+   "primary": "Below / Under Diploma",
+   "secondary":"Diploma",
+   "diploma":"Degree",
+   "bachelor":"Second degree and above",
+   "physical":"Threat",
+   "fin":"An insult"
+
+ 
+
+   
 }

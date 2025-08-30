@@ -1,23 +1,41 @@
 import Report from '../models/Report.js';
 
-// Submit a new report (unauthenticated)
+/**
+ * Submit a new report (unauthenticated)
+ * Saves all fields from the frontend form
+ * Optional: image upload
+ */
 export const submitReport = async (req, res) => {
   try {
-    const { name, email, phone, abuseType, description } = req.body;
-    if (!name || !email || !phone || !abuseType || !description) {
-      return res.status(400).json({ success: false, message: 'All fields are required' });
+    // Keep all original form fields
+    const reportData = { ...req.body };
+
+    // Optional: if an image is uploaded, save its path
+    if (req.file) {
+      reportData.image = req.file.path; // store path in DB
     }
 
-    const report = await Report.create({ name, email, phone, abuseType, description });
-    res.status(201).json({ success: true, data: report });
+    // Create report in DB
+    const report = await Report.create(reportData);
+
+    res.status(201).json({
+      success: true,
+      data: report
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
 };
 
-// Get all reports (director-only)
+/**
+ * Get all reports (director-only)
+ */
 export const getReports = async (req, res) => {
   try {
+    // Fetch all reports sorted by newest first
     const reports = await Report.find().sort({ createdAt: -1 });
     res.json(reports);
   } catch (error) {
@@ -25,21 +43,29 @@ export const getReports = async (req, res) => {
   }
 };
 
-// Delete a report by ID (director-only)
+/**
+ * Delete a report by ID (director-only)
+ */
 export const deleteReport = async (req, res) => {
   try {
     const report = await Report.findById(req.params.id);
     if (!report) {
-      return res.status(404).json({ success: false, message: 'Report not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'Report not found'
+      });
     }
 
-    // ✅ Fix: use deleteOne instead of remove
     await report.deleteOne();
 
-    // Or alternative: await Report.findByIdAndDelete(req.params.id);
-
-    res.json({ success: true, message: 'Report deleted successfully' });
+    res.json({
+      success: true,
+      message: 'Report deleted successfully'
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
 };

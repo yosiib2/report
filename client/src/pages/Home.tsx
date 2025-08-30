@@ -23,18 +23,19 @@ const Home = () => {
   return (
     <div className="text-white flex flex-col bg-[#166866] min-h-screen">
       {/* ================= Hero Section ================= */}
-      <section className="relative overflow-hidden py-10 md:py-14 px-3 sm:px-6">
-        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+      <section className="relative overflow-hidden py-6 md:py-10 px-3 sm:px-6">
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-xl shadow-sm"></div>
 
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10">
+          {/* Left Text */}
           <div className="flex-1 min-w-[260px] text-center md:text-left z-10">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight tracking-tight">
               {t("E-Report")}
             </h1>
             <p className="text-sm sm:text-base lg:text-lg mb-2 opacity-90 leading-relaxed">
               {t("homeDescription")}
             </p>
-            <p className="text-xs sm:text-sm lg:text-base mb-5 opacity-80 leading-relaxed">
+            <p className="text-xs sm:text-sm lg:text-base mb-4 opacity-80 leading-relaxed">
               {t("homeSubDescription")}
             </p>
 
@@ -54,6 +55,7 @@ const Home = () => {
             </div>
           </div>
 
+          {/* Right Image */}
           <div className="flex-shrink-0 flex justify-center w-full md:w-1/2 z-10">
             <img
               src="/one.png"
@@ -125,7 +127,7 @@ const Home = () => {
       {/* ================= Call to Action + Footer ================= */}
       <section className="relative py-10 px-3 sm:px-4 md:px-6 bg-transparent flex-1">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 relative">
-          {/* CTA Text (Moved slightly up) */}
+          {/* CTA Text */}
           <div className="max-w-4xl mx-auto text-center md:text-left mb-24">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-3 md:mb-5">
               {t("readyFirstStep")}

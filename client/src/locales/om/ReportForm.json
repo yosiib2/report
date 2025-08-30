@@ -19,10 +19,9 @@
   "phonePlaceholder": "Lakkoofsa bilbila kee galchi",
   "abuseType": "Gosa Miidhaa *",
   "selectAbuseType": "Gosa miidhaa filadhu",
-  "physical": "Qaamaa",
-  "emotional": "Sammuu",
-  "sexual": "Saalaa",
-  "financial": "Maallaqa",
+  "emotional": "Miidhaa qaamaa",
+  "sexual": "Jechoota nama aarsan",
+  "financial": "Faayidadhan gowwoomsu",
   "other": "Kan biraa",
   "description": "Haleellaa sitti raawwatame bal’inaan ibsi. *",
   "descriptionPlaceholder": "Miidhaa raawwatame bal’inaan akkamitti akka raawwatame ibsi.",
@@ -30,5 +29,29 @@
   "submitting": "Gabaasa ergaaii ",
   "submitReport": "Gabaasa Dhoksaa Ergi",
   "immediateDanger": "Balaa Hatattamaa jirtu?",
-  "immediateDangerDesc": "Balaa qaamaa hatattamaa keessa yoo jirtu, 911 ykn tajaajila hatattamaa naannoo kee bilbili."
+  "immediateDangerDesc": "Balaa qaamaa hatattamaa keessa yoo jirtu, 911 ykn tajaajila hatattamaa naannoo kee bilbili.",
+  "incidentPlace": "ido midhaan itti rawatame",
+  "incidentDay": "Guyyaa  midhaan itti raawwatame",
+  "uploadImage" :"Suuraa galchii",
+  "incidentTime": "Yeroo midhaan itii raawwatame",
+  "educationLevel":"Sadarkaa Barnootaa",
+  "selectJobType":"Kutaa Hojii / Damee Hojii filadhu",
+  "jobType":"Kutaa Hojii / Damee Hojii",
+  "sex": "Saala",
+  "selectSex": "Saala Filadhu",
+  "workPosition": "Sadarkaa Hojii",
+  "male": "Dhiira",
+  "female": "Dubartii",
+  "selectEducation":"Sadarkaa Barnootaa filadhu",
+  "primary": "Diplomaa gadi",
+  "secondary":" Diploma",
+  "diploma":"digrii",
+  "bachelor":"Digrii Lammaffaa fi Isa Olii",
+  "physical":"Sodachisa",
+  "fin":"Arrabsoo"
+ 
+
+
+ 
+  
 }

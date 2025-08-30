@@ -50,5 +50,7 @@
   "phone": "Phone",
   "description": "Description",
   "submitted": "Submitted",
-  "deleteReport": "Delete Report"
+  "deleteReport": "Delete Report",
+  "incidentTime": "The time the abuse happened"
+
 }
