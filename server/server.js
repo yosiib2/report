@@ -16,10 +16,10 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'http://localhost:8080',             // your frontend during dev
-      'http://localhost:8081',             // alternative local dev port
-      process.env.CLIENT_URL,              // from .env (optional)
-      'https://report-then.vercel.app'     // your deployed frontend
+      'http://localhost:8080',             // local frontend
+      'http://localhost:8081',             // alt local frontend
+      process.env.CLIENT_URL,              // optional from .env
+      'https://report-then.vercel.app'     // deployed frontend
     ],
     credentials: true, // allow cookies/auth headers
   })
