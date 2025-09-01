@@ -54,7 +54,13 @@
   "leder": "Gurmuu hoogganaa fi desk itti gaafatamaa",
   "adminster": "Hojii raawwataa fi sana oll ",
   "other": "Kan biraa",
-  "selectWorkPosition": "Gahee hojii/teessoo filadhu"
+  "selectWorkPosition": "Gahee hojii/teessoo filadhu",
+  "government": "Deeggaraa",
+  "private": "Daldala Dhuunfaa",
+  "selfEmployed": "Galmee fi Hayyama Daldalaa",
+  "unemployed": "Hojii Dhabeessa",
+  "eco": "E-daldala",
+  "hq": "Kan biroo"
 
   
 }

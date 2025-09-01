@@ -48,8 +48,13 @@
    "diploma":"Degree",
    "bachelor":"Second degree and above",
    "physical":"Threat",
-   "fin":"An insult"
-
+   "fin":"An insult",
+   "government": "Supporter",
+  "private": "Private Business",
+  "selfEmployed": "Business Registration and License",
+  "unemployed": "Quality",
+  "eco": "E-commerce",
+  "hq": "Other"
  
 
    
