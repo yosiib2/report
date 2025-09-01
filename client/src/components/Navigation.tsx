@@ -26,7 +26,7 @@ const Navigation = () => {
       className={`sticky top-0 z-50 shadow-lg transition-colors duration-300 ${navBgColor}`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16">
+        <div className="flex flex-wrap justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <img
@@ -40,7 +40,7 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex flex-wrap items-center space-x-2 lg:space-x-4">
             <Link to="/">
               <Button
                 variant={isActive("/") ? "default" : "ghost"}
@@ -88,7 +88,7 @@ const Navigation = () => {
             <select
               onChange={(e) => changeLanguage(e.target.value)}
               defaultValue={i18n.language}
-              className="ml-4 bg-white text-gray-700 rounded-md px-2 py-1 text-sm sm:text-base shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="ml-2 sm:ml-4 bg-white text-gray-700 rounded-md px-2 py-1 text-sm sm:text-base shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
               <option value="en">English</option>
               <option value="am">አማርኛ</option>
@@ -97,7 +97,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex flex-wrap items-center space-x-1 sm:space-x-2">
             <Link to="/">
               <Button
                 variant={isActive("/") ? "default" : "ghost"}

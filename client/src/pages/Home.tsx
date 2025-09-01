@@ -28,7 +28,7 @@ const Home = () => {
 
         <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10 flex-wrap">
           {/* Left Text */}
-          <div className="flex-1 min-w-[260px] text-center md:text-left z-10">
+          <div className="flex-1 min-w-[260px] text-center md:text-left md:-ml-20 z-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight tracking-tight">
               {t("E-Report")}
             </h1>
@@ -60,7 +60,7 @@ const Home = () => {
             <img
               src="/one.png"
               alt="Hero Illustration"
-              className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[250px] lg:max-w-[300px] h-auto object-contain"
+              className="w-full max-w-[100px] sm:max-w-[150px] md:max-w-[200px] lg:max-w-[250px] h-auto object-contain"
             />
           </div>
         </div>
@@ -143,21 +143,19 @@ const Home = () => {
             </Button>
           </div>
 
-          {/* Bottom corners: Logo left, Contact right */}
-          <div className="absolute bottom-0 w-full flex flex-col md:flex-row justify-between px-3 md:px-0 gap-6 md:gap-0">
+          {/* Bottom corners: Logo + Contact info */}
+          <div className="absolute bottom-0 left-0 flex flex-col items-start gap-4 p-3 md:p-6">
             {/* Logo bottom-left */}
-            <div className="flex items-start justify-center md:justify-start">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
-                <img
-                  src="/minstriy_logo.png"
-                  alt="Ministry Logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
+              <img
+                src="/minstriy_logo.png"
+                alt="Ministry Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
 
-            {/* Contact info bottom-right */}
-            <div className="flex flex-col items-center md:items-end gap-2 sm:gap-4 text-sm sm:text-base text-white">
+            {/* Contact info below logo */}
+            <div className="flex flex-col items-start gap-2 sm:gap-3 text-sm sm:text-base text-white">
               <a
                 href="https://facebook.com"
                 target="_blank"

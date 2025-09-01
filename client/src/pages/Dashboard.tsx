@@ -261,27 +261,30 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* LOGIN FORM */}
-      {!isDirectorLoggedIn && (
-        <div className="w-full max-w-md space-y-4">
-          <Input
-            placeholder="Username"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            className="w-full"
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            className="w-full"
-          />
-          <Button onClick={handleLogin} className="w-full">
-            {loginLoading ? 'Loading...' : 'Login'}
-          </Button>
-        </div>
-      )}
+   {/* LOGIN FORM */}
+        {!isDirectorLoggedIn && (
+          <div className="flex justify-center items-start min-h-screen pt-40">
+            <div className="w-full max-w-md space-y-4 bg-white p-6 rounded-lg shadow-lg">
+              <Input
+                placeholder="Username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                className="w-full placeholder-gray-500"
+              />
+              <Input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                className="w-full placeholder-gray-500"
+              />
+              <Button onClick={handleLogin} className="w-full">
+                {loginLoading ? 'Loading...' : 'Login'}
+              </Button>
+            </div>
+          </div>
+        )}
+
 
       {/* SEARCH + REPORTS */}
       {isDirectorLoggedIn && (
