@@ -26,7 +26,7 @@ const Home = () => {
       <section className="relative overflow-hidden py-6 md:py-10 px-3 sm:px-6">
         <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-xl shadow-sm"></div>
 
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10">
+        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10 flex-wrap">
           {/* Left Text */}
           <div className="flex-1 min-w-[260px] text-center md:text-left z-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight tracking-tight">
@@ -39,7 +39,7 @@ const Home = () => {
               {t("homeSubDescription")}
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3 sm:gap-4 flex-wrap">
               <Button
                 onClick={handleReportClick}
                 className="w-full sm:w-auto px-5 sm:px-6 py-2 text-sm sm:text-base lg:text-lg font-semibold rounded-xl shadow-md hover:scale-105 transition-transform"
@@ -56,11 +56,11 @@ const Home = () => {
           </div>
 
           {/* Right Image */}
-          <div className="flex-shrink-0 flex justify-center w-full md:w-1/2 z-10">
+          <div className="flex-shrink-0 flex justify-center w-full md:w-1/2 z-10 mt-6 md:mt-0">
             <img
               src="/one.png"
               alt="Hero Illustration"
-              className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain"
+              className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[250px] lg:max-w-[300px] h-auto object-contain"
             />
           </div>
         </div>
@@ -144,9 +144,9 @@ const Home = () => {
           </div>
 
           {/* Bottom corners: Logo left, Contact right */}
-          <div className="absolute bottom-0 w-full flex justify-between px-3 md:px-0">
+          <div className="absolute bottom-0 w-full flex flex-col md:flex-row justify-between px-3 md:px-0 gap-6 md:gap-0">
             {/* Logo bottom-left */}
-            <div className="flex items-start">
+            <div className="flex items-start justify-center md:justify-start">
               <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
                 <img
                   src="/minstriy_logo.png"
@@ -157,7 +157,7 @@ const Home = () => {
             </div>
 
             {/* Contact info bottom-right */}
-            <div className="flex flex-col items-end gap-2 sm:gap-4 text-sm sm:text-base text-white">
+            <div className="flex flex-col items-center md:items-end gap-2 sm:gap-4 text-sm sm:text-base text-white">
               <a
                 href="https://facebook.com"
                 target="_blank"
