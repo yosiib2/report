@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Slider } from '@/components/ui/slider';
 import { Trash2, LogOut, Settings } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Switch } from '@/components/ui/switch'; // ✅ you forgot to import Switch
+import { Switch } from '@/components/ui/switch';
 
 interface Report {
   _id: string;
@@ -28,7 +28,6 @@ interface Report {
   createdAt: string;
 }
 
-// ✅ correct API url
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Dashboard = () => {
@@ -99,7 +98,7 @@ const Dashboard = () => {
       });
       const data = await res.json();
       if (res.status === 401) {
-        handleLogout(); // auto-logout if token expired
+        handleLogout();
         return;
       }
       if (!res.ok) throw new Error(data?.message || 'Failed to fetch reports');
@@ -236,16 +235,26 @@ const Dashboard = () => {
   // RENDER
   // -------------------------------
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6">
       {/* HEADER */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{t('dashboard') || 'Dashboard'}</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-xl sm:text-2xl font-bold">{t('dashboard') || 'Dashboard'}</h1>
         {isDirectorLoggedIn && (
-          <div className="flex gap-2">
-            <Button onClick={() => setShowSettings(!showSettings)} variant="outline" size="icon">
+          <div className="flex gap-2 flex-wrap">
+            <Button
+              onClick={() => setShowSettings(!showSettings)}
+              variant="outline"
+              size="icon"
+              className="touch-manipulation"
+            >
               <Settings className="w-5 h-5" />
             </Button>
-            <Button onClick={handleLogout} variant="destructive" size="icon">
+            <Button
+              onClick={handleLogout}
+              variant="destructive"
+              size="icon"
+              className="touch-manipulation"
+            >
               <LogOut className="w-5 h-5" />
             </Button>
           </div>
@@ -254,17 +263,35 @@ const Dashboard = () => {
 
       {/* LOGIN FORM */}
       {!isDirectorLoggedIn && (
-        <div className="max-w-md space-y-4">
-          <Input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
-          <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-          <Button onClick={handleLogin}>{loginLoading ? 'Loading...' : 'Login'}</Button>
+        <div className="w-full max-w-md space-y-4">
+          <Input
+            placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            className="w-full"
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            className="w-full"
+          />
+          <Button onClick={handleLogin} className="w-full">
+            {loginLoading ? 'Loading...' : 'Login'}
+          </Button>
         </div>
       )}
 
       {/* SEARCH + REPORTS */}
       {isDirectorLoggedIn && (
         <>
-          <Input placeholder="Search by name or phone" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          <Input
+            placeholder="Search by name or phone"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className="w-full"
+          />
           {isLoading ? (
             <Skeleton className="h-32 w-full" />
           ) : error ? (
@@ -272,14 +299,14 @@ const Dashboard = () => {
           ) : filteredReports.length === 0 ? (
             <p className="text-sm text-gray-500">No reports found</p>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredReports.map(report => (
-                <Card key={report._id}>
+                <Card key={report._id} className="touch-manipulation">
                   <CardHeader>
-                    <CardTitle>{report.name}</CardTitle>
-                    <CardDescription>{report.abuseType}</CardDescription>
+                    <CardTitle className="truncate">{report.name}</CardTitle>
+                    <CardDescription className="truncate">{report.abuseType}</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-1 text-sm">
                     <p><strong>Description:</strong> {report.description}</p>
                     <p><strong>Email:</strong> {report.email}</p>
                     <p><strong>Phone:</strong> {report.phone}</p>
@@ -296,12 +323,17 @@ const Dashboard = () => {
                         <img
                           src={`${apiUrl}/${report.image.replace(/\\/g, '/')}`}
                           alt="Report"
-                          className="max-w-full h-auto rounded"
+                          className="w-full h-auto rounded object-cover"
                         />
                       </div>
                     )}
 
-                    <Button variant="destructive" size="sm" className="mt-2" onClick={() => deleteReport(report._id)}>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="mt-3 w-full sm:w-auto"
+                      onClick={() => deleteReport(report._id)}
+                    >
                       <Trash2 className="w-4 h-4 mr-1" /> Delete
                     </Button>
                   </CardContent>
@@ -314,7 +346,7 @@ const Dashboard = () => {
 
       {/* SETTINGS */}
       {showSettings && (
-        <div className="p-4 border rounded-lg space-y-4 max-w-md">
+        <div className="p-4 border rounded-lg space-y-4 w-full max-w-md">
           <div className="flex justify-between items-center">
             <span>Dark mode</span>
             <Switch checked={darkMode} onCheckedChange={toggleDarkMode} />
@@ -326,9 +358,21 @@ const Dashboard = () => {
 
           <div className="space-y-2">
             <h2 className="text-lg font-semibold">Change Password</h2>
-            <Input type="password" placeholder="Old Password" value={oldPassword} onChange={e => setOldPassword(e.target.value)} />
-            <Input type="password" placeholder="New Password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
-            <Button onClick={handleChangePassword} disabled={changingPassword}>
+            <Input
+              type="password"
+              placeholder="Old Password"
+              value={oldPassword}
+              onChange={e => setOldPassword(e.target.value)}
+              className="w-full"
+            />
+            <Input
+              type="password"
+              placeholder="New Password"
+              value={newPassword}
+              onChange={e => setNewPassword(e.target.value)}
+              className="w-full"
+            />
+            <Button onClick={handleChangePassword} disabled={changingPassword} className="w-full">
               {changingPassword ? 'Changing...' : 'Change Password'}
             </Button>
           </div>
