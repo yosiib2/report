@@ -19,5 +19,13 @@
   "nationalHotline": "ብሔራዊ ሆትላይን: 1-800-799-SAFE",
   "readyFirstStep": "በ ኢትዮጵያ ፌዴራላዊ ዴሞከራሲያዊ ሪፐብሊክ የንግድና ቀጣናዊ ትስስር ሚኒስቴር?",
   "firstStepDesc": "ብቻዎትን አይገጥም። ዛሬ ሪፖርትዎን በደህንነት ይጀምሩ።",
-  "startReport": "ሪፖርትዎን ይጀምሩ"
+  "startReport": "ሪፖርትዎን ይጀምሩ",
+  "low": "ዝቅተኛ ባለሙያ",
+  "midium":"መካከለኛ ባለሙያ",
+  "high":"ከፍተኛ ባለሙያ",
+  "leder":"ቡድን መሪ እና ዴስክ ሃላፊ",
+  "adminster":"ስራ አስፍፃሚ እና በላይ",
+  "other":"ሌላ",
+  "selectWorkPosition":"የስራ ድርሻ/ መደብ ይምርጡ"
+
 }

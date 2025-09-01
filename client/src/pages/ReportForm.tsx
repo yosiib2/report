@@ -211,10 +211,11 @@ const ReportForm = () => {
                     <SelectValue placeholder={t("selectWorkPosition")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Manager">{t("manager")}</SelectItem>
-                    <SelectItem value="Engineer">{t("engineer")}</SelectItem>
-                    <SelectItem value="Technician">{t("technician")}</SelectItem>
-                    <SelectItem value="Clerk">{t("clerk")}</SelectItem>
+                    <SelectItem value="Manager">{t("low")}</SelectItem>    
+                    <SelectItem value="Engineer">{t("midium")}</SelectItem>
+                    <SelectItem value="Technician">{t("high")}</SelectItem>
+                    <SelectItem value="Clerk">{t("leder")}</SelectItem>
+                    <SelectItem value="Clerk">{t("adminster")}</SelectItem>
                     <SelectItem value="Other">{t("other")}</SelectItem>
                   </SelectContent>
                 </Select>

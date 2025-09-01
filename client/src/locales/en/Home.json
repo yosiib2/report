@@ -19,5 +19,13 @@
   "nationalHotline": "National Hotline: 1-800-799-SAFE",
   "readyFirstStep": "FEDERAL DEMOCRATIC REPUBLIC OF ETHIOPIA MINISTRY OF TRADE AND REGIONAL INTEGRATION",
   "firstStepDesc": "You don't have to face this alone. Start your report today in a safe, secure environment.",
-  "startReport": "Start Your Report"
+  "startReport": "Start Your Report",
+  "low": "Junior Professional",
+  "midium": "Intermediate Professional",
+  "high": "Senior Professional",
+  "leder": "Team Leader and Desk Head",
+  "adminster": "Executive and Above",
+  "other": "Other",
+  "selectWorkPosition": "Select Work Position/Role"
+
 }
