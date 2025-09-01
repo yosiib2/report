@@ -80,7 +80,7 @@ const Navigation = () => {
                 }`}
               >
                 <BarChart3 className="h-4 w-4" />
-                <span>{t("Dashboard")}</span>
+                <span>{t("Login")}</span>
               </Button>
             </Link>
 
@@ -144,9 +144,9 @@ const Navigation = () => {
               defaultValue={i18n.language}
               className="bg-white text-gray-700 rounded-md px-1.5 py-0.5 text-xs shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              <option value="en">EN</option>
-              <option value="am">AM</option>
-              <option value="om">OM</option>
+              <option value="en">English</option>
+              <option value="am">አማርኛ</option>
+              <option value="om">Afaan Oromoo</option>
             </select>
           </div>
         </div>

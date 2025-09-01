@@ -243,11 +243,12 @@ const ReportForm = () => {
                   <Select value={formData.jobType} onValueChange={(v) => handleInputChange("jobType", v)} required>
                     <SelectTrigger><SelectValue placeholder={t("selectJobType")} /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Government">{t("government")}</SelectItem>
+                      <SelectItem value="Government">{t("government")}</SelectItem> 
                       <SelectItem value="Private">{t("private")}</SelectItem>
                       <SelectItem value="Self-employed">{t("selfEmployed")}</SelectItem>
                       <SelectItem value="Unemployed">{t("unemployed")}</SelectItem>
-                      <SelectItem value="Other">{t("other")}</SelectItem>
+                      <SelectItem value="Other">{t("eco")}</SelectItem>
+                      <SelectItem value="Other">{t("hq")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

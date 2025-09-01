@@ -48,6 +48,12 @@
   "secondary":"ዲፕሎማ",
   "diploma":"ዲግሪ",
   "bachelor":"ሁለተኛ ዲግሪ እና ከዚህ በላይ",
-  "fin":"ስድብ"
+  "fin":"ስድብ",
+  "government":"ደጋፊ",
+  "private":"ወጪ ንግድ ",
+  "selfEmployed":"የ ንግድ ምዝገባ እና ፍቃድ",
+  "unemployed":"ጥራት",
+  "eco":"ኢኮሜርስ",
+  "hq":"ሌላ"
 
 }
